@@ -1,0 +1,13 @@
+<!--index.wxml-->
+<view class="container">
+  <scroll-view scroll-y>
+    <swiper>
+      <block wx:for='{{imgUrls}}' wx:key='{{index}}'>
+        <swiper-item></swiper-item>
+      </block>
+    </swiper>
+  </scroll-view>
+  <!-- <view wx:for="{{array}}" class='list' wx:key='{{index}}'>
+    {{item.message}}
+  </view> -->
+</view>
