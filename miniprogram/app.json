@@ -45,5 +45,6 @@
     "scope.userLocation": {
       "desc":"你的位置仅仅是用来标记说明！"
     }
-  }
+  },
+  "requiredBackgroundModes": ["audio"]
 }

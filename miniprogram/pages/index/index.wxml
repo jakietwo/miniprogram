@@ -1,12 +1,18 @@
 <!--index.wxml-->
-<view class="container">
-  <scroll-view scroll-y>
-    <swiper>
-      <block wx:for='{{imgUrls}}' wx:key='{{index}}'>
-        <swiper-item></swiper-item>
-      </block>
-    </swiper>
-  </scroll-view>
+<view>
+  <text class="navbar">INVITATION</text>
+  <swiper class='image-swiper'  autoplay="true" interval="5000" duration="1000" circular="true" vertical="true">
+    <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image"  />
+      </swiper-item>
+    </block>
+  </swiper>
+  <!-- 显示moda  -->
+  <view class='text-wrapper'>
+    <text class='name'>Mr.肖 & Miss.萍</text>
+    <text class='time'>time:</text>
+  </view>
   <!-- <view wx:for="{{array}}" class='list' wx:key='{{index}}'>
     {{item.message}}
   </view> -->

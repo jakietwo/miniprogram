@@ -1,6 +1,6 @@
 //index.js
 const app = getApp()
-
+let innerAudioContext
 Page({
   data: {
     avatarUrl: './user-unlogin.png',
@@ -13,9 +13,9 @@ Page({
       {message: '获取个人信息'}
     ],
     imgUrls:[
-      '../../images/swipe/11',
-      '../../images/swipe/25',
-      '../../images/swipe/31'
+      'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/31.jpg?sign=08d0e71eb4bc03a6e2e6b4975e571968&t=1548144874',
+      'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/11.jpg?sign=9bc7362583bd2bc2cdfd50344340f527&t=1548121382',
+      'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/25.jpg?sign=74251a7d1217aad6e9e0881b439555f9&t=1548121406'
     ]
   },
 
@@ -27,6 +27,21 @@ Page({
       })
       return
     }
+    // 播放音乐
+    innerAudioContext = wx.createInnerAudioContext()
+    innerAudioContext.autoplay = true
+    innerAudioContext.src = 'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/1.mp3?sign=591b6ce3824c59a4e905bccff6e76c6d&t=1548120575'
+    innerAudioContext.onPlay(()=>{
+      console.log('开始播放音乐')
+    })
+    innerAudioContext.onPause(()=>{
+      console.log('暂停')
+    })
+    innerAudioContext.onError(()=>{
+      console.log('播放失败')
+    })
+    innerAudioContext.play()
+
     const db = wx.cloud.database()
     // 获取用户信息
     wx.getSetting({
@@ -39,14 +54,13 @@ Page({
                 avatarUrl: res.userInfo.avatarUrl,
                 userInfo: res.userInfo
               })
-              console.log('0000',res.userInfo)
-              console.log('1111', )
+          
               // 判断用户信息是否存在数据库 没有则添加
               db.collection('userInfo').where({
                 nickname: res.userInfo.nickname
               }).get({
                 success(res1) {
-                  console.log(res1)
+            
                   if (!res1.data.length) {
                     db.collection('userInfo').add({
                       data: res.userInfo,
@@ -63,7 +77,7 @@ Page({
                   console.log(info)
                 }
               })
-              console.log('用户', res)
+          
             }
           })
         }
@@ -216,5 +230,10 @@ Page({
       }
     })
   },
-
+  onShow(){
+    console.log('123456', innerAudioContext)
+    if(innerAudioContext){
+      innerAudioContext.play()
+    }
+  }
 })
