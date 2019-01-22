@@ -32,19 +32,36 @@ page {
 }
 .text-wrapper{
   position: absolute;
-  width: 500rpx;
-  height: 150px;
+  width: 560rpx;
+  height: 130px;
   left: 50%;
   padding: 20rpx;
   z-index: 10;
   bottom: 20px;
   transform: translateX(-50%);
-  color: rgba(240, 240, 240, .9);
+  color: rgba(7,17,27,.9);
   font-size: 16px;
   box-sizing: border-box;
   border: 10rpx solid rgba(248,248,248,.5);
+  background-color: rgba(255, 255, 255, .3);
   border-image: url('~/../../images/message.png')
 }
-.name{
+.name,.date,.action,.address {
   display: block;
+}
+.name{
+  color: black;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.date{
+  font-size: 10px;
+}
+.action{
+  margin: 10px 0;
+  letter-spacing: 2px;
+  color: #F56C6C;
+}
+.address{
+  font-size: 10px;
 }
