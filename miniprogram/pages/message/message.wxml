@@ -1,2 +1,4 @@
 <!--pages/message/message.wxml-->
-<text>pages/message/message.wxml</text>
+<text>
+  <button open-type='share'>分享</button>
+</text>

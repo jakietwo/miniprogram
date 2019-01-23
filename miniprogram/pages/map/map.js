@@ -1,4 +1,5 @@
 // pages/map/map.js
+// 32.7010500000,112.0906700000
 const QQMapWX = require('../../libs/qqmap-wx-jssdk.min.js')
 let qqmapsdk
 Page({
@@ -7,9 +8,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    markers: [],
-    latitude: '',
-    longitude: '',
+    markers: [{
+      iconPath: '/images/home1.png',
+      id: 0,
+      latitude: '32.70105',
+      longitude: '112.09067',
+      width: 20,
+      height: 20
+    }],
+    latitude: '32.70105',
+    longitude: '112.09067',
+    originAddress: ['112.09067', '32.70105'],
     textData: {}
   },
 

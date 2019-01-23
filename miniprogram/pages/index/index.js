@@ -9,13 +9,15 @@ Page({
     takeSession: false,
     requestResult: '',
     openId: '',
+    animationData: [],
     array: [
       {message: '获取个人信息'}
     ],
     imgUrls:[
-      'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/31.jpg?sign=08d0e71eb4bc03a6e2e6b4975e571968&t=1548144874',
-      'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/11.jpg?sign=9bc7362583bd2bc2cdfd50344340f527&t=1548121382',
-      'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/25.jpg?sign=74251a7d1217aad6e9e0881b439555f9&t=1548121406'
+      'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/小强/1-1.jpg?sign=177e75ecb71767cc279485bbe8c57bc6&t=1548213327',
+      'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/小强/2.jpg?sign=f1ae4a80d3553351f70b6674bc74d87b&t=1548214084',
+      'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/小强/3.jpg?sign=2e03e9cb0ed9739cfd12904e459bbb3e&t=1548214443',
+      'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/小强/4.jpg?sign=63ec2cb47b7543aaa1a6636b2997f9f9&t=1548214465'
     ]
   },
 
@@ -45,7 +47,8 @@ Page({
     const db = wx.cloud.database()
     // 获取用户信息
     wx.getSetting({
-      success: res => { 
+      success: res => {
+        console.log('已经青请求过的权限', res) 
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
@@ -54,13 +57,11 @@ Page({
                 avatarUrl: res.userInfo.avatarUrl,
                 userInfo: res.userInfo
               })
-          
               // 判断用户信息是否存在数据库 没有则添加
               db.collection('userInfo').where({
                 nickname: res.userInfo.nickname
               }).get({
                 success(res1) {
-            
                   if (!res1.data.length) {
                     db.collection('userInfo').add({
                       data: res.userInfo,
@@ -79,6 +80,43 @@ Page({
               })
           
             }
+          })
+        }else{
+          // 用户没有授予getUserInfo 权限
+          // 则询问是否授予
+          that.requestUserInfoFunction()
+        }
+        // 是否授予位置权限
+        if (!res.authSetting['scope.userLocation']) {
+          // 用户没有授予位置权限
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success() {
+              // 用户已经同意小程序使用位置信息 则调用位置信息
+              wx.getLocation({
+                success: function(res) {
+                  const latitude = res.latitude
+                  const longitude = res.longitude
+                  const speed = res.speed
+                  const accuracy = res.accuracy
+                  console.log('地址', res)
+                },
+              })
+              console.log('同意录音')
+            }
+          })
+        }else{
+          // 用户已经授予位置权限 直接调用wx.getLocation
+          wx.getLocation({
+            success: function (res) {
+              const latitude = res.latitude
+              const longitude = res.longitude
+              const speed = res.speed
+              const accuracy = res.accuracy
+              console.log('地址1', res)
+              // 将用户地址信息存入数据库 todo
+
+            },
           })
         }
       },
@@ -122,6 +160,18 @@ Page({
         }
       }
     })
+    // 给文字添加动画
+    // const animation = wx.createAnimation({
+    //   duration: 1000,
+    //   timingFunction: 'ease',
+    // })
+    // this.animation = animation
+
+    // animation.step()
+    // this.setData({
+    //   animationData: animation.export()
+    // })
+    
     // wx.getSystemInfo({
     //   success: function(res) {
     //     console.log(res)
@@ -230,10 +280,34 @@ Page({
       }
     })
   },
+  // 转发分享小程序
+  onShareAppMessage(){
+    
+  },
+  // 页面展现默认调用的方法
   onShow(){
     console.log('123456', innerAudioContext)
     if(innerAudioContext){
       innerAudioContext.play()
     }
+  },
+  // 封装询问是否授予用户信息函数
+  requestUserInfoFunction(){
+    wx.authorize({
+      scope: 'scope.userInfo',
+      success() {
+        // 用户已经同意小程序使用用户信息
+        console.log('用户同意自身信息')
+
+      },
+      fail(){
+        // 用户拒绝授权
+        wx.showToast({
+          title: '你已拒绝授权!可能会影响使用',
+          icon: 'success',
+          duration: 2000
+        })
+      }
+    })
   }
 })

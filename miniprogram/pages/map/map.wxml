@@ -1,3 +1,5 @@
 <!--pages/map/map.wxml-->
 <view class='map_container'>
+  <map id='map' class='map' longitude='{{longitude}}' latitude='{{latitude}}'  markers="{{markers}}"
+  ></map>
  </view>

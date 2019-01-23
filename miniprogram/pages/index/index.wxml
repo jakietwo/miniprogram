@@ -4,12 +4,12 @@
   <swiper class='image-swiper'  autoplay="true" interval="5000" duration="1000" circular="true" vertical="true">
     <block wx:for="{{imgUrls}}" wx:key="{{index}}">
       <swiper-item>
-        <image src="{{item}}" class="slide-image"  />
+        <image src="{{item}}" class="slide-image"  mode='widthFix' />
       </swiper-item>
     </block>
   </swiper>
   <!-- 显示moda  -->
-  <view class='text-wrapper'>
+  <view class='text-wrapper' animation="{{animationData}}">
     <text class='name'>Mr.肖 & Miss.萍</text>
     <text class='date'>谨定于2019年02月02日(星期六)中午12时08分 </text>
     <text class='action'>举办婚礼</text>
@@ -18,4 +18,5 @@
   <!-- <view wx:for="{{array}}" class='list' wx:key='{{index}}'>
     {{item.message}}
   </view> -->
+
 </view>
