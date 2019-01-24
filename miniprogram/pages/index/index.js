@@ -298,7 +298,36 @@ Page({
       success() {
         // 用户已经同意小程序使用用户信息
         console.log('用户同意自身信息')
+        wx.getUserInfo({
+          success: res => {
+            this.setData({
+              avatarUrl: res.userInfo.avatarUrl,
+              userInfo: res.userInfo
+            })
+            // 判断用户信息是否存在数据库 没有则添加
+            db.collection('userInfo').where({
+              nickname: res.userInfo.nickname
+            }).get({
+              success(res1) {
+                if (!res1.data.length) {
+                  db.collection('userInfo').add({
+                    data: res.userInfo,
+                    success(res) {
+                      console.log(' 增加成功')
+                    },
+                    fail(info) {
+                      console.log('增加失败')
+                    }
+                  })
+                }
+              },
+              fail(info) {
+                console.log(info)
+              }
+            })
 
+          }
+        })
       },
       fail(){
         // 用户拒绝授权
@@ -309,5 +338,12 @@ Page({
         })
       }
     })
+  },
+  // 将用户地理位置信息上传服务器
+  uploadUserAddress(){
+    // 先判断是否已上传过此人位置
+    // if 存在则更新位置
+    // 不存在就新增位置
+
   }
 })

@@ -1,0 +1,14 @@
+<!--pages/photoStore/photoStore.wxml-->
+  <view class='imageWrapper'>
+    <image src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/1.jpg' class='foreImg' mode='aspectFill'/>
+  </view>
+
+  <swiper class='image-swiper'  autoplay="true" interval="5000" duration="1000" circular="true" >
+    <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" mode='widthFix'  />
+      </swiper-item>
+    </block>
+  </swiper>
+<image class='flower flower1' src='https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/小强/flower/flower1.png?sign=e2df2a59143f6025e0caa90f86543103&t=1548317226' />
+<view class='flower flower2'></view>

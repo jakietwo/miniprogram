@@ -1,0 +1,74 @@
+/* pages/photoStore/photoStore.wxss */
+
+.imageWrapper {
+  background-color: rgb(246, 246, 246);
+}
+
+.foreImg {
+  width: 100vw;
+  height: 200rpx;
+  animation: scale 6s linear infinite;
+}
+
+.image-swiper {
+  width: 100vw;
+  height: 600rpx;
+}
+
+.slide-image {
+  width: 100vw;
+  height: 600rpx;
+  box-shadow: 0 0 10px rgb(7, 17, 27, 0.6);
+}
+
+.flower {
+  position: absolute;
+
+  animation: slideup 20s infinite;
+}
+
+.flower1 {
+  width: 40rpx;
+  height: 40rpx;
+  background-image: url('https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/小强/flower/flower1.png?sign=e2df2a59143f6025e0caa90f86543103&t=1548317226');
+  animation: snow 12s linear infinite;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.05);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  75% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes snow {
+  0% {
+    top: 10px;
+    rotate: 0;
+  }
+
+  100% {
+    top: 500px;
+    rotate: 360deg;
+  }
+}

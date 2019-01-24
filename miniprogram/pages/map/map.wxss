@@ -1,10 +1,8 @@
 /* pages/map/map.wxss */
 .map_container{
   position: absolute;
-  top: 0;
-  bottom: 80px;
-  left: 0;
-  right: 0;
+  width: 100vw;
+  height: 100vh;
 }
 .map{
   width: 100%;
@@ -12,19 +10,21 @@
 }
 .map_text{
   position: absolute;
+  z-index: 100;
   left: 0;
   right: 0;
-  bottom: 0px;
-  height: 80px;
+  bottom: 0;
+  height: 60px;
   background: #fff;
   padding: 0 15px;
+
 }
-text{
-  margin: 5px 0;
+.text{
+  margin-top: 10px;
   display: block;
-  font-size:12px;
+  color: #f56c6c;
+  font-size:18px;
 }
-.h1{
-  margin: 15px 0;
-  font-size:15px;
+.text1{
+  font-size: 12px;
 }
