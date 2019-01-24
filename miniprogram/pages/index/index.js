@@ -1,5 +1,6 @@
 //index.js
 const app = getApp()
+const db = wx.cloud.database()
 let innerAudioContext
 Page({
   data: {
@@ -10,10 +11,10 @@ Page({
     requestResult: '',
     openId: '',
     animationData: [],
-    array: [
-      {message: '获取个人信息'}
-    ],
-    imgUrls:[
+    array: [{
+      message: '获取个人信息'
+    }],
+    imgUrls: [
       'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/小强/1-1.jpg?sign=177e75ecb71767cc279485bbe8c57bc6&t=1548213327',
       'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/小强/2.jpg?sign=f1ae4a80d3553351f70b6674bc74d87b&t=1548214084',
       'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/小强/3.jpg?sign=2e03e9cb0ed9739cfd12904e459bbb3e&t=1548214443',
@@ -29,26 +30,30 @@ Page({
       })
       return
     }
+
+    // 获取用户openId
+    that.onGetOpenid()
+
     // 播放音乐
     innerAudioContext = wx.createInnerAudioContext()
     innerAudioContext.autoplay = true
     innerAudioContext.src = 'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/1.mp3?sign=591b6ce3824c59a4e905bccff6e76c6d&t=1548120575'
-    innerAudioContext.onPlay(()=>{
+    innerAudioContext.onPlay(() => {
       console.log('开始播放音乐')
     })
-    innerAudioContext.onPause(()=>{
+    innerAudioContext.onPause(() => {
       console.log('暂停')
     })
-    innerAudioContext.onError(()=>{
+    innerAudioContext.onError(() => {
       console.log('播放失败')
     })
     innerAudioContext.play()
 
-    const db = wx.cloud.database()
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
-        console.log('已经青请求过的权限', res) 
+        console.log('已经青请求过的权限', res)
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
@@ -78,13 +83,13 @@ Page({
                   console.log(info)
                 }
               })
-          
+
             }
           })
-        }else{
+        } else {
           // 用户没有授予getUserInfo 权限
           // 则询问是否授予
-          that.requestUserInfoFunction()
+          // that.requestUserInfoFunction()
         }
         // 是否授予位置权限
         if (!res.authSetting['scope.userLocation']) {
@@ -102,42 +107,43 @@ Page({
                   console.log('地址', res)
                 },
               })
-              console.log('同意录音')
+              console.log('同意位置授权')
             }
           })
-        }else{
+        } else {
           // 用户已经授予位置权限 直接调用wx.getLocation
           wx.getLocation({
-            success: function (res) {
+            success: function(res) {
               const latitude = res.latitude
               const longitude = res.longitude
               const speed = res.speed
               const accuracy = res.accuracy
               console.log('地址1', res)
               // 将用户地址信息存入数据库 todo
-
+              // 先查看用户是否存在数据库
+              that.uploadUserAddress(res)
             },
           })
         }
       },
-  
+
     })
     wx.cloud.callFunction({
       name: 'login',
-      success: function (data) {
+      success: function(data) {
         that.setData({
           openId: data.result.openid
         })
       },
-      fail: function(e){
+      fail: function(e) {
         console.log(e)
       }
     })
     db.collection('userSystem').where({
       _openid: that.openId
     }).get({
-      success(res){
-        if(!res.data.length ){
+      success(res) {
+        if (!res.data.length) {
           // 说明用户系统信息不存在数据库 则添加
           // 获取系统信息
           wx.getSystemInfo({
@@ -145,7 +151,7 @@ Page({
               wx.cloud.callFunction({
                 name: 'userSystemInfo',
                 data: res2,
-                success: res3 =>{
+                success: res3 => {
                   // 将用户系统数据添加到数据库
                   db.collection('userSystem').add({
                     data: res2,
@@ -171,7 +177,7 @@ Page({
     // this.setData({
     //   animationData: animation.export()
     // })
-    
+
     // wx.getSystemInfo({
     //   success: function(res) {
     //     console.log(res)
@@ -201,6 +207,7 @@ Page({
   },
 
   onGetUserInfo: function(e) {
+    console.log(e)
     if (!this.logged && e.detail.userInfo) {
       this.setData({
         logged: true,
@@ -208,6 +215,7 @@ Page({
         userInfo: e.detail.userInfo
       })
     }
+    console.log(e)
   },
 
   onGetOpenid: function() {
@@ -218,15 +226,9 @@ Page({
       success: res => {
         console.log('[云函数] [login] user openid: ', res.result.openid)
         app.globalData.openid = res.result.openid
-        wx.navigateTo({
-          url: '../userConsole/userConsole',
-        })
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
-        wx.navigateTo({
-          url: '../deployFunctions/deployFunctions',
-        })
       }
     })
   },
@@ -281,18 +283,18 @@ Page({
     })
   },
   // 转发分享小程序
-  onShareAppMessage(){
-    
+  onShareAppMessage() {
+
   },
   // 页面展现默认调用的方法
-  onShow(){
+  onShow() {
     console.log('123456', innerAudioContext)
-    if(innerAudioContext){
+    if (innerAudioContext) {
       innerAudioContext.play()
     }
   },
   // 封装询问是否授予用户信息函数
-  requestUserInfoFunction(){
+  requestUserInfoFunction() {
     wx.authorize({
       scope: 'scope.userInfo',
       success() {
@@ -329,21 +331,50 @@ Page({
           }
         })
       },
-      fail(){
+      fail() {
         // 用户拒绝授权
         wx.showToast({
-          title: '你已拒绝授权!可能会影响使用',
-          icon: 'success',
+          title: '你已拒绝授权位置,可能会影响使用',
+          icon: 'none',
           duration: 2000
         })
       }
     })
   },
   // 将用户地理位置信息上传服务器
-  uploadUserAddress(){
+  uploadUserAddress(data) {
     // 先判断是否已上传过此人位置
     // if 存在则更新位置
     // 不存在就新增位置
+    db.collection('userLocation').where({
+      _openid: app.globalData.openid
+    }).get({
+      success: (res) => {
+        console.log('数据', res.data)
+        if (res.data.length) {
+          // 存在用户 则更新
+          console.log('更新')
+          db.collection('userLocation').doc(res.data[0]._id).set({
+            data: data,
+            success: console.log,
+            fail: console.error
+          })
+        } else {
+          // 不存在则添加
+          db.collection('userLocation').add({
+            data: data,
+            success: (res1) => {
+              console.log('添加用户位置信息成功', res1)
+            },
+            fail: (info) => {
+              console.log('添加失败', info)
+            }
+          })
+        }
+      },
+      fail: (info) => {
 
+      }
+    })
   }
 })
