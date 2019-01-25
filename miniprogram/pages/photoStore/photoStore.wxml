@@ -11,4 +11,12 @@
     </block>
   </swiper>
 <image class='flower flower1' src='https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/小强/flower/flower1.png?sign=e2df2a59143f6025e0caa90f86543103&t=1548317226' />
-<view class='flower flower2'></view>
+
+<image class='flower flower2' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/flower2.png'></image>
+<image src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/flower4.png' class='flower flower3'></image>
+<image src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/flower4.png' class='flower flower4'></image>
+<image src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/flower4.png' class='flower flower5'></image>
+<image src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/flower4.png' class='flower flower6'></image>
+<image class='flower flower7' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/flower2.png'></image>
+<image class='flower flower8' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/flower2.png'></image>
+<image class='flower flower9' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/flower2.png'></image>

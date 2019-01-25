@@ -104,10 +104,10 @@ Page({
                   const longitude = res.longitude
                   const speed = res.speed
                   const accuracy = res.accuracy
-                  console.log('地址', res)
+                
                 },
               })
-              console.log('同意位置授权')
+            
             }
           })
         } else {
@@ -118,7 +118,7 @@ Page({
               const longitude = res.longitude
               const speed = res.speed
               const accuracy = res.accuracy
-              console.log('地址1', res)
+        
               // 将用户地址信息存入数据库 todo
               // 先查看用户是否存在数据库
               that.uploadUserAddress(res)
@@ -207,7 +207,7 @@ Page({
   },
 
   onGetUserInfo: function(e) {
-    console.log(e)
+  
     if (!this.logged && e.detail.userInfo) {
       this.setData({
         logged: true,
@@ -215,7 +215,7 @@ Page({
         userInfo: e.detail.userInfo
       })
     }
-    console.log(e)
+  
   },
 
   onGetOpenid: function() {
@@ -299,7 +299,7 @@ Page({
       scope: 'scope.userInfo',
       success() {
         // 用户已经同意小程序使用用户信息
-        console.log('用户同意自身信息')
+       
         wx.getUserInfo({
           success: res => {
             this.setData({
@@ -350,10 +350,10 @@ Page({
       _openid: app.globalData.openid
     }).get({
       success: (res) => {
-        console.log('数据', res.data)
+      
         if (res.data.length) {
           // 存在用户 则更新
-          console.log('更新')
+        
           db.collection('userLocation').doc(res.data[0]._id).set({
             data: data,
             success: console.log,

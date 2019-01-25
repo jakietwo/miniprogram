@@ -23,22 +23,70 @@
 
 .flower {
   position: absolute;
-
-  animation: slideup 20s infinite;
+  z-index: 10;
 }
 
 .flower1 {
   width: 40rpx;
   height: 40rpx;
-  background-image: url('https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/小强/flower/flower1.png?sign=e2df2a59143f6025e0caa90f86543103&t=1548317226');
-  animation: snow 12s linear infinite;
+  animation: snow1 12s linear infinite;
 }
 
-img {
-  display: block;
-  width: 100%;
+.flower2 {
+  width: 60rpx;
+  height: 60rpx;
+  left: 40px;
+  animation: snow2 15s linear infinite;
 }
 
+.flower3 {
+  width: 50rpx;
+  height: 50rpx;
+  left: 120px;
+  animation: snow3 20s linear infinite;
+}
+
+.flower4 {
+  width: 50rpx;
+  height: 50rpx;
+  left: 200rpx;
+  animation: snow3 22s cubic-bezier(0.075, 0.82, 0.165, 1) infinite;
+}
+
+.flower5 {
+  width: 40px;
+  height: 40px;
+  left: 400rpx;
+  animation: snow3 24s cubic-bezier(.59,.2,.36,.78) infinite;
+}
+
+.flower6 {
+  width: 50rpx;
+  height: 50rpx;
+  left: 150px;
+  animation: snow3 25s cubic-bezier(0.23, 1, 0.320, 1) infinite;
+}
+
+.flower7{
+  width: 30rpx;
+  height: 30rpx;
+  left: 500rpx;
+  animation: snow3 25s cubic-bezier(1, 0, 0, 1) infinite;
+}
+.flower8{
+  width: 40rpx;
+  height: 40rpx;
+  left: 600rpx;
+  animation: snow3 25s cubic-bezier(0.39, 0.575, 0.565, 1) infinite;
+}
+
+.flower9{
+  width: 50rpx;
+  height: 50rpx;
+  left: 600rpx;
+  animation: snow3 20s ease-in-out infinite;
+  animation-delay: 2s;
+}
 @keyframes scale {
   0% {
     transform: scale(1);
@@ -61,14 +109,81 @@ img {
   }
 }
 
-@keyframes snow {
+@keyframes snow1 {
   0% {
-    top: 10px;
+    top: -10px;
+    rotate: 0;
+    left: 0;
+  }
+
+  100% {
+    left: 20px;
+    top: 100vh;
+    rotate: 360deg;
+  }
+}
+
+@keyframes snow2 {
+  0% {
+    top: -10px;
+    rotate: 0;
+    left: 0;
+  }
+
+  100% {
+    left: 20px;
+    top: 100vh;
+    rotate: 360deg;
+  }
+}
+
+@keyframes snow3 {
+  0% {
+    top: -10px;
     rotate: 0;
   }
 
   100% {
-    top: 500px;
+    left: 60px;
+    top: 100vh;
+    rotate: 360deg;
+  }
+}
+
+@keyframes snow3 {
+  0% {
+    top: -10px;
+    rotate: 0;
+  }
+
+  100% {
+    left: 60px;
+    top: 100vh;
+    rotate: 360deg;
+  }
+}
+
+@keyframes snow3 {
+  0% {
+    top: -10px;
+    rotate: 0;
+  }
+
+  100% {
+    left: 60px;
+    top: 100vh;
+    rotate: 360deg;
+  }
+}
+
+@keyframes snow3 {
+  0% {
+    top: -10px;
+    rotate: 0;
+  }
+
+  100% {
+    top: 100vh;
     rotate: 360deg;
   }
 }

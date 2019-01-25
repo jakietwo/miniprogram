@@ -1,4 +1,35 @@
 <!--pages/message/message.wxml-->
-<text>
-  <button open-type='share'>分享</button>
-</text>
+<view class='page'>
+  <view class='navbar'>
+    <button class="commentBtn {{!selected? 'selectedBtn': ''}}" bindtap='chooseNavBar'>评论</button>
+    <button class="audioBtn {{selected? 'selectedBtn': ''}}" bindtap='chooseNavBar'>语音</button>
+  </view>
+
+  <scroll-view class='scrollView' enable-back-to-top scroll-y>
+    <view hidden='{{selected}}'>
+      <view class='commentitem'>
+        <image class='commentImage' src='https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKQg3rqdp2XLXjo5xKygJtgnS46vl2QdYVdN39ia0bXaQLbia4v5DdPGtULEz1N0zVrEUKTeZnESg7A/132' />
+        <view class='textWrapper'>
+          <text class='nickname'>wangjiag</text>
+           <text class='time'>2018-12-30 14:25</text>
+          <text class='comment'>15489978123123123123123986</text>
+
+        </view>
+    
+      </view>
+    </view>
+    <view hidden='{{!selected}}'>语音</view>
+  </scroll-view>
+
+  <view class='btnWrapper'>
+    <button open-type='getUserInfo' bindgetuserinfo="bindGetUserInfo" class='textBless' disabled="{{forbidden}}">发文字祝福</button>
+    <button class='audioBless' disabled="{{forbidden}}">发语音祝福</button>
+  </view>
+  <view class='commentWrapper' wx:if="{{isShowComment}}">
+    <form bindsubmit="sendWord">
+      <textarea name="value" type='text' class='commentWord' placeholder='来点祝福语吧(120字以内)' placeholder-style='color:#f56c6c;'></textarea>
+      <button class='cancel' bindtap='cancelWord'>取消</button>
+      <button class='confirm' form-type="submit">确定</button>
+    </form>
+  </view>
+</view>

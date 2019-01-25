@@ -37,7 +37,7 @@ page {
   height: 130px;
   padding: 20rpx;
   z-index: 10;
-  bottom: 20px;
+  bottom: 30px;
   color: rgba(7,17,27,.9);
   font-size: 16px;
   box-sizing: border-box;

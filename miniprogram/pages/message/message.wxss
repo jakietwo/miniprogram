@@ -1,1 +1,150 @@
 /* pages/message/message.wxss */
+
+.page {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 217, 230, 0.5);
+}
+
+.navbar {
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0;
+  align-items: center;
+}
+
+.commentBtn, .audioBtn {
+  width: 40%;
+  height: 30px;
+  letter-spacing: 2px;
+  line-height: 30px;
+  padding: 0;
+  margin: 0;
+}
+
+.selectedBtn {
+  color: white;
+  background-color: #f56c6c;
+}
+
+.scrollView {
+  position: relative;
+  width: 100vw;
+  padding: 0;
+  height: calc(100vh - 50px - 40px);
+}
+
+.commentitem {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  padding: 5px 5px;
+  border-radius: 20px;
+  border: 1px solid rgba(7, 17, 27, 0.5);
+}
+.textWrapper{
+  display: inline-block;
+  width: calc(70vw - 60px)
+}
+.nickname{
+  font-size: 18px;
+}
+.time{
+  float: right;
+  font-size: 12px;
+}
+.commentImage {
+  display: inline-block;
+  margin-right: 40rpx;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.richText {
+  width: 100vw;
+  height: 400rpx;
+  background-color: white;
+}
+
+.btnWrapper {
+  height: 50px;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textBless {
+  width: 40%;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 20px;
+  letter-spacing: 2px;
+  color: white;
+  background-color: #f56c6c;
+  box-shadow: 0 0 3px #f56c6c;
+}
+
+.audioBless {
+  width: 40%;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 20px;
+  letter-spacing: 2px;
+  color: white;
+  background-color: #f56c6c;
+  box-shadow: 0 0 3px #f56c6c;
+}
+
+.commentWrapper {
+  width: 100vw;
+  height: 300rpx;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  box-shadow: 0 0 5px rgba(7, 17, 27, 0.5);
+  transition: all 0.5s linear;
+  background-color: rgba(255, 217, 230, 1);
+}
+
+.commentWord {
+  position: relative;
+  z-index: 100;
+  width: 100vw;
+  height: 200rpx;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.cancel {
+  display: inline-block;
+  width: 40%;
+  height: 40px;
+  line-height: 40px;
+  letter-spacing: 2px;
+  margin-left: 5%;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.confirm {
+  display: inline-block;
+  width: 40%;
+  height: 40px;
+  line-height: 40px;
+  letter-spacing: 2px;
+  margin-left: 10%;
+  border-radius: 20px;
+  color: white;
+  background-color: #f56c6c;
+}
