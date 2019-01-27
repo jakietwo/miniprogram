@@ -4,7 +4,7 @@
     <button class="commentBtn {{!selected? 'selectedBtn': ''}}" bindtap='chooseNavBar'>评论
     <text style='font-size:14px;'>({{commentData.length}})</text></button>
     <button class="audioBtn {{selected? 'selectedBtn': ''}}" bindtap='chooseNavBar'>语音
-    <text style='font-size:14px;'>({{commentData.length}})</text>
+    <text style='font-size:14px;'>({{recordData.length}})</text>
     </button>
   </view>
 
@@ -20,14 +20,16 @@
       </view>
     </view>
     <view hidden='{{!selected}}'>
-      <view class='commentitem' wx:for="{{commentData}}" wx:key="{{index}}">
+      <view class='commentitem' wx:for="{{recordData}}" wx:key="{{index}}">
         <image class='commentImage' src='{{item.avatarUrl}}' />
         <view class='textWrapper'>
           <text class='time'>{{item.time}}</text>
           <text class='nickname'>{{item.nickName}}</text>
-          <text class='audioId'>
+          <text class='audioId'  bindtap='playSingleAudio' data-id='{{item.audioId}}'>
             <text class='audioText'>播放</text>
+             <text class="duration">{{item.duration}}S</text>
           </text>
+         
         </view>
       </view>
     </view>

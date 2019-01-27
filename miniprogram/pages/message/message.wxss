@@ -247,6 +247,12 @@
   background-color: #25b7aa;
   border-radius: 5px;
 }
+.duration{
+  position: absolute;
+  right: -32px;
+  line-height: 25px;
+  
+}
 
 .audioText {
   position: relative;

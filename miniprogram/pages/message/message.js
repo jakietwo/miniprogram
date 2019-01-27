@@ -22,7 +22,7 @@ Page({
     audioInfo: {},
     hadRecord: false,
     audioId: '',
-    recordtData: []
+    recordData: []
   },
 
   /**
@@ -31,6 +31,7 @@ Page({
   onLoad: function(options) {
     // 获取数据
     this.getBlessWordsData()
+    this.getRecordData()
   },
 
   /**
@@ -106,6 +107,33 @@ Page({
       },
       fail(info) {
         console.log(info)
+        wx.hideLoading();
+      }
+    })
+  },
+  // 获取所有录音数据
+  getRecordData(){
+    let that = this
+    wx.showLoading({
+      title: '加载中',
+    })
+    db.collection('userRecord').get({
+      success(res){
+        let data = res.data
+        console.log(data)
+        wx.hideLoading()
+        if(data.length>0){
+          data = handleTime.orderByTime(data)
+          data = handleTime.toFix(data)
+          that.setData({
+            recordData: data
+          })
+          console.log(that.recordData)
+        }
+      },
+      fail(info){
+        console.log(info)
+        wx.hideLoading();
       }
     })
   },
@@ -158,7 +186,20 @@ Page({
       success: (res) => {
         console.log(res)
         // 是否授权用户信息
-
+        if (res.authSetting['scope.userInfo']){
+          wx.getUserInfo({
+            success(res){
+              that.setData({
+                userInfo: res.userInfo
+              })
+              console.log(that.data.userInfo)
+              app.globalData.userInfo = res.userInfo 
+            },
+            fail(info){
+              console.log(info)
+            }
+          })
+        }
         if (res.authSetting['scope.record']) {
           // 已经授权 
           // show 录音页面
@@ -247,11 +288,15 @@ Page({
       icon: "none",
       duration: 200000
     })
+    // 开始录音 停止播放音乐
+    app.globalData.innerAudioContext.pause()
     console.log('开始')
     recordManager = wx.getRecorderManager()
     // 监听录音结束
     recordManager.onStop((res) => {
       console.log(res)
+      // 录音结束 不管时长问题都要继续播放音乐
+      app.globalData.innerAudioContext.play()
       // 录音时长大于500 则有效
       if (res.duration > 500) {
         that.setData({
@@ -305,16 +350,15 @@ Page({
   // 发送录音祝福
   sendRecord() {
     let that = this
-    let userInfo = app.globalData.userInfo
-    console.log(userInfo)
+    let userInfo = that.data.userInfo
     let time = util.formatTime(new Date())
-    return 
     db.collection('userRecord').add({
       data: {
-        avatarUrl: that.userInfo.avatarUrl,
+        avatarUrl: userInfo.avatarUrl,
         audioId: that.data.audioId,
-        nickName: that.userInfo.nickName,
-        time: time
+        nickName: userInfo.nickName,
+        time: time,
+        duration: that.data.audioInfo.duration
       },
       success: (res)=>{
         console.log('发送祝福成功')
@@ -322,6 +366,8 @@ Page({
           title: '发送祝福成功！',
           icon: 'success'
         })
+        that.cancelRecord()
+        that.getRecordData()
       },
       fail: (info)=>{
         wx.showToast({
@@ -339,23 +385,38 @@ Page({
       console.log('开始播放录音')
     })
     innerAudio.onEnded(() => {
-      console.log('借宿播放录音')
+      console.log('借束播放录音')
       setTimeout(()=>{
         app.globalData.innerAudioContext.play()
-      },500)
+      },1000)
     })
     if (this.data.audioId) {
       innerAudio.src = this.data.audioId
       console.log(this.data.audioId)
       app.globalData.innerAudioContext.pause()
-      setTimeout(()=>{
-        innerAudio.play()
-      },500)
+      innerAudio.play()
     } else {
       wx.showToast({
         title: '没有资源无法播放',
         icon: 'none'
       })
     }
+  },
+  playSingleAudio(e){
+    console.log(e.currentTarget.dataset.id)
+    let audioId = e.currentTarget.dataset.id
+    let innerAudio1 = wx.createInnerAudioContext()
+    innerAudio1.onPlay(() => {
+      console.log('开始播放录音')
+    })
+    innerAudio1.onEnded(() => {
+      console.log('借束播放录音')
+      setTimeout(() => {
+        app.globalData.innerAudioContext.play()
+      }, 1000)
+    })
+    app.globalData.innerAudioContext.pause()
+    innerAudio1.src = audioId
+    innerAudio1.play()
   }
 })
