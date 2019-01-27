@@ -30,14 +30,9 @@ Page({
       })
       return
     }
-
-    // 获取用户openId
-    that.onGetOpenid()
-
     // 播放音乐
     innerAudioContext = wx.createInnerAudioContext()
-    innerAudioContext.autoplay = true
-    innerAudioContext.src = 'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/1.mp3?sign=591b6ce3824c59a4e905bccff6e76c6d&t=1548120575'
+    innerAudioContext.src = 'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/music.mp3?sign=01a628ed78a3f472c0ce3ed33614299f&t=1548580024'
     innerAudioContext.onPlay(() => {
       console.log('开始播放音乐')
     })
@@ -48,7 +43,9 @@ Page({
       console.log('播放失败')
     })
     innerAudioContext.play()
-
+    app.globalData.innerAudioContext = innerAudioContext
+    // 获取用户openId
+    that.onGetOpenid()
 
     // 获取用户信息
     wx.getSetting({
@@ -62,6 +59,7 @@ Page({
                 avatarUrl: res.userInfo.avatarUrl,
                 userInfo: res.userInfo
               })
+              app.globalData.userInfo = res.userInfo 
               // 判断用户信息是否存在数据库 没有则添加
               db.collection('userInfo').where({
                 nickname: res.userInfo.nickname

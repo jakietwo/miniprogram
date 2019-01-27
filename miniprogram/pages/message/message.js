@@ -1,7 +1,9 @@
 // pages/message/message.js
 const app = getApp()
 const db = wx.cloud.database()
+let recordManager
 const util = require('../../utils/formatTime.js')
+const handleTime = require('./../../utils/index.js')
 Page({
 
   /**
@@ -13,13 +15,20 @@ Page({
     animationData: {},
     blessWord: '',
     userInfo: {},
-    selected: 0
+    selected: 0,
+    commentData: [],
+    isShowRecord: false,
+    isShowRecordBtn: true,
+    audioInfo: {},
+    hadRecord: false,
+    audioId: '',
+    recordtData: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // 获取数据
     this.getBlessWordsData()
   },
@@ -27,76 +36,81 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   // choose dif btn
-  chooseNavBar(){
+  chooseNavBar() {
     this.setData({
       selected: !this.data.selected
     })
   },
   // 获取祝福列表以及文字
-  getBlessWordsData(){
+  getBlessWordsData() {
+    let that = this
     wx.showLoading({
       title: '加载中',
     })
     db.collection('userBlessing').get({
-      success(res){
+      success(res) {
         console.log(res)
+        // 获取到评论数据
+        // 对数据按时间排序
+        let data = handleTime.orderByTime(res.data)
+        that.setData({
+          commentData: data
+        })
+        wx.hideLoading();
       },
-      fail(info){
+      fail(info) {
         console.log(info)
       }
     })
-    setTimeout(() => {
-      wx.hideLoading()
-    }, 1000)  
   },
   // 用户点击发文字祝福 && 获取用户个人信息
-  bindGetUserInfo(e){
+  bindGetUserInfo(e) {
     let that = this
     console.log(e.detail.userInfo)
     console.log(app.globalData)
@@ -104,17 +118,17 @@ Page({
       userInfo: e.detail.userInfo
     })
     // 将用户信息发globalData
-    if(e.detail.userInfo.nickName){
+    if (e.detail.userInfo.nickName) {
       app.globalData.userInfo = e.detail.userInfo
       // 已获得用户信息
       db.collection('userInfo').where({
         _openid: app.globalData.openid
       }).get({
-        success(res){
+        success(res) {
           console.log(res)
           let resdata = res.data
-          if(resdata.length){
-            if(resdata[0].forbidden){
+          if (resdata.length) {
+            if (resdata[0].forbidden) {
               // 用户已被禁止评论
               that.setData({
                 forbidden: true
@@ -130,19 +144,61 @@ Page({
             })
           }
         },
-        fail(info){
+        fail(info) {
           console.log(info)
         }
       })
     }
   },
+  // 点击语音祝福按钮
+  bindGetRecord() {
+    let that = this
+    // 询问授权
+    wx.getSetting({
+      success: (res) => {
+        console.log(res)
+        // 是否授权用户信息
+
+        if (res.authSetting['scope.record']) {
+          // 已经授权 
+          // show 录音页面
+          that.showRecordWrapper()
+        } else {
+          // 没有授权则询问是否授权
+          console.log('没有授权')
+          wx.authorize({
+            scope: 'scope.record',
+            success() {
+              // 已经授权 可以使用record
+              console.log('同意录音')
+              that.showRecordWrapper()
+            },
+            fail(info) {
+              wx.showToast({
+                title: '你没有授权录音!',
+                icon: 'none'
+              })
+            }
+          })
+        }
+      }
+    })
+  },
   // 点击取消按键
-  cancelWord(){
+  cancelWord() {
     this.setData({
       isShowComment: false
     })
   },
-  sendWord(e){
+  // 点击取消录音
+  cancelRecord() {
+    this.setData({
+      isShowRecord: false,
+      hadRecord: false
+    })
+  },
+  // 发送文字祝福
+  sendWord(e) {
     // 发送文字祝福
     // 先验证数据
     let that = this
@@ -160,7 +216,7 @@ Page({
         avatarUrl: that.data.userInfo.avatarUrl,
         time: time
       },
-      success(res){
+      success(res) {
         // 增加成功
         wx.showToast({
           title: '您的祝福已送达!',
@@ -169,11 +225,137 @@ Page({
           isShowComment: false
         })
         // todo 刷新列表数据
+        that.getBlessWordsData()
       },
-      fail(info){
+      fail(info) {
         console.log(info)
       }
     })
-  }
+  },
+  // 显示录音界面
+  showRecordWrapper() {
+    this.setData({
+      isShowRecord: true
+    })
+  },
+  // 开始录音
+  touchStart() {
+    let that = this
+    wx.vibrateLong()
+    wx.showToast({
+      title: '正在录音ing',
+      icon: "none",
+      duration: 200000
+    })
+    console.log('开始')
+    recordManager = wx.getRecorderManager()
+    // 监听录音结束
+    recordManager.onStop((res) => {
+      console.log(res)
+      // 录音时长大于500 则有效
+      if (res.duration > 500) {
+        that.setData({
+          audioInfo: res,
+          hadRecord: true
+        })
+        // 将临时文件上传
+        console.log(res)
+        const time = new Date().getTime()
+        wx.cloud.uploadFile({
+          cloudPath: time + '.mp3', // 上传至云端的路径
+          filePath: res.tempFilePath, // 小程序临时文件路径
+          name: 'file',
+          header: {
+            'content-type': 'multipart/form-data'
+          },
+          success: res1 => {
+            // 返回文件 ID
+            console.log(res1.fileID)
+            that.setData({
+              audioId: res1.fileID
+            })
+          },
+          fail: console.error
+        })
+      }else{
+        // 录音时长太短
+        wx.showToast({
+          title: '录音时长太短',
+          icon: 'none'
+        })
+      }
+    })
+    recordManager.onStart(res => {
+      console.log('1231')
+    })
+    recordManager.start({
+      format: 'mp3',
+      duration: 120000,
+      numberOfChannels: 1, //录音通道数
+      encodeBitRate: 24000, //编码码率
+      frameSize: 50, //指定帧大小，单位 KB
+    })
+  },
+  touchEnd() {
+    console.log('结束')
+    wx.hideToast()
+    recordManager.stop()
+  },
 
+  // 发送录音祝福
+  sendRecord() {
+    let that = this
+    let userInfo = app.globalData.userInfo
+    console.log(userInfo)
+    let time = util.formatTime(new Date())
+    return 
+    db.collection('userRecord').add({
+      data: {
+        avatarUrl: that.userInfo.avatarUrl,
+        audioId: that.data.audioId,
+        nickName: that.userInfo.nickName,
+        time: time
+      },
+      success: (res)=>{
+        console.log('发送祝福成功')
+        wx.showToast({
+          title: '发送祝福成功！',
+          icon: 'success'
+        })
+      },
+      fail: (info)=>{
+        wx.showToast({
+          title: '发送语音祝福失败!',
+          icon: 'none'
+        })
+        console.log('发送语音祝福失败')
+      }
+    })
+  },
+  playAudio() {
+    let innerAudio = wx.createInnerAudioContext()
+    innerAudio.autoplay = true
+    innerAudio.onPlay(() => {
+      console.log('开始播放录音')
+    })
+    innerAudio.onEnded(() => {
+      console.log('借宿播放录音')
+      setTimeout(()=>{
+        app.globalData.innerAudioContext.play()
+      },500)
+    })
+    if (this.data.audioId) {
+      innerAudio.src = this.data.audioId
+      console.log(this.data.audioId)
+      app.globalData.innerAudioContext.pause()
+      setTimeout(()=>{
+        innerAudio.play()
+      },500)
+    } else {
+      wx.showToast({
+        title: '没有资源无法播放',
+        icon: 'none'
+      })
+    }
+  }
 })
