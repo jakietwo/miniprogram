@@ -27,9 +27,8 @@
           <text class='nickname'>{{item.nickName}}</text>
           <text class='audioId'  bindtap='playSingleAudio' data-id='{{item.audioId}}'>
             <text class='audioText'>播放</text>
-             <text class="duration">{{item.duration}}S</text>
+            <text class="duration">{{item.duration}}S</text>
           </text>
-         
         </view>
       </view>
     </view>

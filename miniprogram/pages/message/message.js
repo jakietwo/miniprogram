@@ -438,18 +438,21 @@ Page({
    
   },
   playPeopleAudio(audioId){
+    console.log('23132')
     let innerAudio1 = wx.createInnerAudioContext()
+    innerAudio1.src = audioId
     innerAudio1.onPlay(() => {
       console.log('开始播放录音')
+
     })
     innerAudio1.onEnded(() => {
       console.log('借束播放录音')
+      innerAudio1.destroy()
       // setTimeout(() => {
       //   app.globalData.innerAudioContext.play()
       // }, 1000)
     })
     // app.globalData.innerAudioContext.pause()
-    innerAudio1.src = audioId
     innerAudio1.play()
   }
 })
