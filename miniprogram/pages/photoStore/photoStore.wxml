@@ -1,6 +1,6 @@
 <!--pages/photoStore/photoStore.wxml-->
   <view class='imageWrapper'>
-    <image src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/1.jpg' class='foreImg' mode='aspectFill'/>
+    <!-- <image src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/1.jpg' class='foreImg' mode='aspectFill'/> -->
   </view>
 
   <swiper class='image-swiper'  autoplay="true" interval="5000" duration="1000" circular="true" >
@@ -20,3 +20,11 @@
 <image class='flower flower7' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/flower2.png'></image>
 <image class='flower flower8' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/flower2.png'></image>
 <image class='flower flower9' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/flower2.png'></image>
+<image class='flower flower10' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/qiqiu.svg'></image>
+<image class='flower flower14' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/qiqiu.svg'></image>
+<image class='flower flower11' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/qiqiu.svg'></image>
+<image class='flower flower12' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/qiqiu.svg'></image>
+<image class='flower flower13' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/qiqiu.svg'></image>
+<image class='flower flower16' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/qiqiu.svg'></image>
+<image class='flower flower15' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/qiqiu.svg'></image>
+<image class='flower flower21' src='cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/小强/flower/qiqiu.svg'></image>

@@ -10,7 +10,14 @@ const toFix = (data)=>{
   })
   return data
 }
+const sortByDateTime = (a,b) => {
+  return a.dateTime < b.dateTime
+}
+const orderByDateTime = (data) =>{
+  return data.sort(sortByDateTime)
+}
 module.exports = {
   orderByTime: orderByTime,
   toFix,
+  orderByDateTime
 }

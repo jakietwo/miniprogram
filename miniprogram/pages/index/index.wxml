@@ -10,7 +10,7 @@
   </swiper>
   <!-- 显示moda  -->
   <view class='text-wrapper' animation="{{animationData}}">
-    <text class='name'>Mr.肖 & Miss.萍</text>
+    <text class='name'>Mr.肖强 & Miss.苏娇</text>
     <text class='date'>谨定于2019年02月02日(星期六)中午12时08分 </text>
     <text class='action'>举办婚礼</text>
     <text class='address'>地址:河南省南阳市邓州市香江湾大酒店</text>

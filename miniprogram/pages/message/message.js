@@ -45,14 +45,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    app.globalData.innerAudioContext.pause()
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    app.globalData.innerAudioContext.play()
   },
 
   /**
@@ -179,9 +179,16 @@ Page({
     }
   },
   // 点击语音祝福按钮
-  bindGetRecord() {
+  bindGetRecord(e) {
     let that = this
     // 询问授权
+    if(!e.detail.userInfo){
+      wx.showToast({
+        title: '请授予用户信息权限',
+        icon: 'none'
+      })
+      return 
+    }
     wx.getSetting({
       success: (res) => {
         console.log(res)
@@ -199,6 +206,8 @@ Page({
               console.log(info)
             }
           })
+        }else {
+
         }
         if (res.authSetting['scope.record']) {
           // 已经授权 
@@ -289,14 +298,14 @@ Page({
       duration: 200000
     })
     // 开始录音 停止播放音乐
-    app.globalData.innerAudioContext.pause()
+    // app.globalData.innerAudioContext.pause()
     console.log('开始')
     recordManager = wx.getRecorderManager()
     // 监听录音结束
     recordManager.onStop((res) => {
       console.log(res)
       // 录音结束 不管时长问题都要继续播放音乐
-      app.globalData.innerAudioContext.play()
+      // app.globalData.innerAudioContext.play()
       // 录音时长大于500 则有效
       if (res.duration > 500) {
         that.setData({
@@ -386,14 +395,14 @@ Page({
     })
     innerAudio.onEnded(() => {
       console.log('借束播放录音')
-      setTimeout(()=>{
-        app.globalData.innerAudioContext.play()
-      },1000)
+      // setTimeout(()=>{
+      //   app.globalData.innerAudioContext.play()
+      // },1000)
     })
     if (this.data.audioId) {
       innerAudio.src = this.data.audioId
       console.log(this.data.audioId)
-      app.globalData.innerAudioContext.pause()
+      // app.globalData.innerAudioContext.pause()
       innerAudio.play()
     } else {
       wx.showToast({
@@ -403,19 +412,44 @@ Page({
     }
   },
   playSingleAudio(e){
-    console.log(e.currentTarget.dataset.id)
     let audioId = e.currentTarget.dataset.id
+    let that = this
+    wx.getSetting({
+      success(res){
+        if (res.authSetting['scope.record']) {
+          that.playPeopleAudio(audioId)
+        }else{
+          wx.authorize({
+            scope: 'scope.record',
+            success() {
+              // 已经授权 可以使用record
+              console.log('同意录音')
+              that.playPeopleAudio(audioId)
+            },
+            fail(info) {
+              wx.showToast({
+                title: '你没有授权录音!',
+                icon: 'none'
+              })
+            }
+          })
+        }
+      }
+    })
+   
+  },
+  playPeopleAudio(audioId){
     let innerAudio1 = wx.createInnerAudioContext()
     innerAudio1.onPlay(() => {
       console.log('开始播放录音')
     })
     innerAudio1.onEnded(() => {
       console.log('借束播放录音')
-      setTimeout(() => {
-        app.globalData.innerAudioContext.play()
-      }, 1000)
+      // setTimeout(() => {
+      //   app.globalData.innerAudioContext.play()
+      // }, 1000)
     })
-    app.globalData.innerAudioContext.pause()
+    // app.globalData.innerAudioContext.pause()
     innerAudio1.src = audioId
     innerAudio1.play()
   }

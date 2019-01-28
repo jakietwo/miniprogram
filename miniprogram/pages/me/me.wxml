@@ -1,2 +1,28 @@
 <!--pages/me/me.wxml-->
-<text>pages/me/me.wxml</text>
+<view>
+    <video
+    id="myVideo"
+    class='myVideo'
+    src="cloud://jakietwo-1c0bb9.6a61-jakietwo-1c0bb9/audio/xiaoqiang.mp4"
+    danmu-list="{{danmuList}}"
+    enable-danmu
+    danmu-btn
+    controls
+    bindtimeupdate="bindVideoTime"
+  ></video>
+  <view class='danmuWrapper'>
+    <input class='danmu' type='text' placeholder='弹幕' bindblur="bindInputBlur" placeholder-style='color:rgba(7,17,27,.7);'></input>
+  <button class='sendDanmu' open-type='getUserInfo' bindgetuserinfo='sendDanmu'>发送</button>
+  </view>
+  <scroll-view class='scrollView'>
+    <view class='commentitem' wx:for="{{danmuList}}" wx:key="{{index}}">
+        <image class='commentImage' src='{{item.avatarUrl}}' />
+        <view class='textWrapper'>
+          <text class='time'>{{item.dateTime}}</text>
+          <text class='nickname'>{{item.nickName}}</text>
+          <text class='comment'>{{item.text}}</text>
+        </view>
+      </view>
+  </scroll-view>
+
+</view>

@@ -2,7 +2,7 @@
 <view class='map_container'>
   <map id='map' class='map' longitude='{{longitude}}' latitude='{{latitude}}' markers="{{markers}}" bindmarkertap='markerTap' show-location></map>
 </view>
-<view wx:if="{{showText}}" class="map_text">
+<view  class="map_text">
   <text class='text'>{{textData.name}}</text>    
   <text class='text1'>{{textData.address}}</text>
 </view>

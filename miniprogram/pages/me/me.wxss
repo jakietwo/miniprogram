@@ -1,1 +1,102 @@
 /* pages/me/me.wxss */
+.myVideo{
+  position: fixed;
+  width: 100vw;
+  height: 220px;
+}
+.danmuWrapper{
+  position: fixed;
+  box-sizing: border-box;
+  top: 220px;
+  width: 100vw;
+  padding-top: 10px;
+  height: 50px;
+  background-color: white;
+  border-bottom: 1px dashed rgba(7, 17, 27, .3);
+}
+.danmu{
+  display: inline-block;
+  margin-left: 8%;
+  height: 30px;
+  max-width: 230px;
+  padding: 0 5px;
+  outline-color: #F56c6c;
+  border: 1px #25b7aa solid;
+  border-radius: 10px;
+  word-break: break-all;
+  word-wrap: break-word;
+  
+}
+.sendDanmu{
+  display: inline-block;
+  width: 20%;
+  margin-left: 2%;
+  height: 30px;
+  line-height: 30px;
+  letter-spacing: 1px;
+  color: white;
+  background-color: #F56c6c;
+}
+.scrollView{
+  position: relative;
+  z-index: -10;
+  width: 100vw;
+  padding: 0;
+  top: 270px;
+  bottom: 0;
+  background-color: rgba(240, 248, 248, 0.7);
+}
+.commentitem {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  padding: 5px 5px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(240, 248, 248, 0.7);
+  background-color: white;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  width: calc(70vw - 60px);
+}
+
+.nickname {
+  position: relative;
+  top: -15px;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+}
+
+.time {
+  position: relative;
+  left: 10px;
+  text-align: right;
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+.commentImage {
+  position: relative;
+  right: 10px;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.comment {
+  position: relative;
+  top: -10px;
+  width: 100%;
+  line-height: 20px;
+  word-break: break-all;
+  word-wrap: break-word;
+  font-size: 14px;
+}

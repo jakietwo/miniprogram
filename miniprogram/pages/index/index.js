@@ -32,6 +32,7 @@ Page({
     }
     // 播放音乐
     innerAudioContext = wx.createInnerAudioContext()
+    innerAudioContext.loop = true
     innerAudioContext.src = 'https://6a61-jakietwo-1c0bb9-1253201912.tcb.qcloud.la/music.mp3?sign=01a628ed78a3f472c0ce3ed33614299f&t=1548580024'
     innerAudioContext.onPlay(() => {
       console.log('开始播放音乐')

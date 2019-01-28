@@ -13,6 +13,9 @@
 .image-swiper {
   width: 100vw;
   height: 600rpx;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-300rpx);
 }
 
 .slide-image {
@@ -77,6 +80,7 @@
   width: 40rpx;
   height: 40rpx;
   left: 600rpx;
+
   animation: snow3 25s cubic-bezier(0.39, 0.575, 0.565, 1) infinite;
 }
 
@@ -86,6 +90,95 @@
   left: 600rpx;
   animation: snow3 20s ease-in-out infinite;
   animation-delay: 2s;
+}
+.flower10{
+  width: 50rpx;
+  height: 50rpx;
+  left: 50px;
+  bottom: -30px;
+  animation: qiqiu 20s ease-in-out infinite;
+}
+.flower11{
+  width: 50rpx;
+  height: 50rpx;
+  left: 100px;
+  animation: qiqiu 16s cubic-bezier(0.075, 0.82, 0.165, 1) infinite;
+  animation-delay: 1s;
+}
+.flower12{
+  width: 50rpx;
+  height: 50rpx;
+  left: 120px;
+  animation: qiqiu 18s linear infinite;
+  animation-delay: 3s;
+}
+.flower13{
+  width: 50rpx;
+  height: 50rpx;
+  left: 150px;
+  bottom: -30px;
+  animation: qiqiu 20s linear infinite;
+  animation-delay: 2s;
+}
+.flower14{
+  width: 50rpx;
+  height: 50rpx;
+  left: 200px;
+   bottom: -30px;
+  animation: qiqiu 10s linear infinite;
+}
+.flower15{
+  width: 50rpx;
+  height: 50rpx;
+  left: 230px;
+  bottom: -30px;
+  animation: qiqiu 15s linear infinite;
+}
+.flower16{
+  width: 50rpx;
+  height: 50rpx;
+  left: 280px;
+  bottom: -30px;
+  animation: qiqiu 16s linear infinite;
+}
+.flower17{
+  width: 50rpx;
+  height: 50rpx;
+  left: 85vw;
+  bottom: -30px;
+  animation: qiqiu 18s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+}
+.flower18{
+  width: 50rpx;
+  height: 50rpx;
+  left: 80vw;
+  bottom: -30px;
+  animation: qiqiu 16s linear infinite;
+  animation-delay: 1s;
+}
+.flower19{
+  width: 50rpx;
+  height: 50rpx;
+  left: 85vw;
+  bottom: -30px;
+  animation: qiqiu 16s linear infinite;
+  animation-delay: 1s;
+}
+.flower20{
+  width: 50rpx;
+  height: 50rpx;
+  left: 90vw;
+   bottom: -30px;
+  animation: qiqiu 16s linear infinite;
+  animation-delay: 3s;
+}
+.flower21{
+  width: 50rpx;
+  height: 50rpx;
+  left: 90vw;
+  bottom: -30px;
+  animation: qiqiu 16s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+  animation-delay: 6s;
 }
 @keyframes scale {
   0% {
@@ -131,46 +224,7 @@
   }
 
   100% {
-    left: 20px;
-    top: 100vh;
-    rotate: 360deg;
-  }
-}
-
-@keyframes snow3 {
-  0% {
-    top: -10px;
-    rotate: 0;
-  }
-
-  100% {
-    left: 60px;
-    top: 100vh;
-    rotate: 360deg;
-  }
-}
-
-@keyframes snow3 {
-  0% {
-    top: -10px;
-    rotate: 0;
-  }
-
-  100% {
-    left: 60px;
-    top: 100vh;
-    rotate: 360deg;
-  }
-}
-
-@keyframes snow3 {
-  0% {
-    top: -10px;
-    rotate: 0;
-  }
-
-  100% {
-    left: 60px;
+    left: 50px;
     top: 100vh;
     rotate: 360deg;
   }
@@ -187,3 +241,15 @@
     rotate: 360deg;
   }
 }
+
+@keyframes qiqiu {
+  0%{
+    top: 100vh;
+  }
+  100% {
+    top: -30px;
+    scale: 1.1;
+  }
+}
+
+

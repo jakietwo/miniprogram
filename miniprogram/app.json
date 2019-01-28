@@ -10,41 +10,41 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "我的个人小程序",
+    "navigationBarTitleText": "肖强结婚请柬",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "selectedColor": "#00D8A0",
+    "selectedColor": "#F56C6C",
     "list": [
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "images/home.png",
-        "selectedIconPath": "images/home1.png"
+        "iconPath": "images/love1.png",
+        "selectedIconPath": "images/love.png"
       },
       {
         "pagePath": "pages/map/map",
         "text": "地图",
-        "iconPath": "images/location.png",
-        "selectedIconPath": "images/location1.png"
+        "iconPath": "images/address1.png",
+        "selectedIconPath": "images/address.png"
       },
       {
         "pagePath":     "pages/photoStore/photoStore",
         "text": "相册",
-        "iconPath": "images/me.png",
-        "selectedIconPath": "images/me1.png"
+        "iconPath": "images/photoStore1.png",
+        "selectedIconPath": "images/photoStore.png"
       },
       {
         "pagePath": "pages/message/message",
-        "text": "祝福",
-        "iconPath": "images/message.png",
-        "selectedIconPath": "images/message1.png"
+        "text": "语音",
+        "iconPath": "images/audio1.png",
+        "selectedIconPath": "images/audio.png"
       },
       {
         "pagePath": "pages/me/me",
-        "text": "我的",
-        "iconPath": "images/me.png",
-        "selectedIconPath": "images/me1.png"
+        "text": "视频",
+        "iconPath": "images/video1.png",
+        "selectedIconPath": "images/video.png"
       }
     ]
   },

@@ -37,7 +37,7 @@
 
   <view class='btnWrapper'>
     <button open-type='getUserInfo' bindgetuserinfo="bindGetUserInfo" class='textBless' disabled="{{forbidden}}">发文字祝福</button>
-    <button open-type='getUserInfo' class='audioBless' bindtap='bindGetRecord' disabled="{{forbidden}}">发语音祝福</button>
+    <button open-type='getUserInfo' class='audioBless' bindgetuserinfo='bindGetRecord' disabled="{{forbidden}}">发语音祝福</button>
   </view>
   <view class='commentWrapper' wx:if="{{isShowComment}}">
     <form bindsubmit="sendWord">

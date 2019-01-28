@@ -20,9 +20,9 @@ Page({
     longitude: '112.09067',
     originAddress: ['112.09067', '32.70105'],
     textData: {
-      name:'',
-      address:''
-    },
+      name: '香江湾大酒店',
+      address: '地址：南阳市邓州市蓝湾嘉园西大门口'
+    },   
     showText: false,
   },
 
