@@ -128,7 +128,6 @@ Page({
           that.setData({
             recordData: data
           })
-          console.log(that.recordData)
         }
       },
       fail(info){
