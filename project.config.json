@@ -10,7 +10,7 @@
 	},
 	"appid": "wx24dc320a4852c07c",
 	"projectname": "secondMiniPr",
-	"libVersion": "2.2.5",
+	"libVersion": "2.5.1",
 	"condition": {
 		"search": {
 			"current": -1,

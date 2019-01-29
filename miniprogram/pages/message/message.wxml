@@ -19,6 +19,7 @@
         </view>
       </view>
     </view>
+
     <view hidden='{{!selected}}'>
       <view class='commentitem' wx:for="{{recordData}}" wx:key="{{index}}">
         <image class='commentImage' src='{{item.avatarUrl}}' />

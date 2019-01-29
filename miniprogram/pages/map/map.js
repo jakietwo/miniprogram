@@ -1,6 +1,7 @@
 // pages/map/map.js
 // 32.7010500000,112.0906700000
 // const QQMapWX = require('../../libs/qqmap-wx-jssdk.min.js')
+const app = getApp()
 let qqmapsdk
 Page({
 
@@ -52,7 +53,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    app.globalData.innerAudioContext.play()
   },
 
   /**

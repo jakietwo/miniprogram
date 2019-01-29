@@ -92,7 +92,7 @@ Page({
           // 对time 排序
           let danmu = []
           danmu = handleTime.orderByTime(data)
-          console.log(danmu)
+  
           that.setData({
             danmuData: data,
             danmuList: danmu
@@ -113,7 +113,7 @@ Page({
   // 点击发送按钮
   sendDanmu(e) {
     let that = this
-    console.log('123123123')
+  
     // 判断是否授权用户信息
     if (!e.detail.userInfo) {
       return
@@ -131,7 +131,7 @@ Page({
         text: this.data.danmuValue,
         color: this.data.danmuColor
       })
-      console.log(this.videoContext)
+    
       // 将弹幕存数据库
       let userInfo = that.data.userInfo
       let dateTime = util.formatTime(new Date())
