@@ -3,7 +3,7 @@
     "pages/index/index",
     "pages/map/map",
     "pages/message/message",
-    "pages/me/me",
+
     "pages/photoStore/photoStore"
   ],
   "window": {
@@ -39,13 +39,8 @@
         "text": "语音",
         "iconPath": "images/audio1.png",
         "selectedIconPath": "images/audio.png"
-      },
-      {
-        "pagePath": "pages/me/me",
-        "text": "视频",
-        "iconPath": "images/video1.png",
-        "selectedIconPath": "images/video.png"
       }
+    
     ]
   },
   "permission": {
