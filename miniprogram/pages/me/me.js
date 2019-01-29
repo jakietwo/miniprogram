@@ -33,13 +33,14 @@ Page({
    */
   onReady: function() {
     this.videoContext = wx.createVideoContext('myVideo')
+    app.globalData.innerAudioContext.pause()
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    app.globalData.innerAudioContext.pause()
+
   },
 
   /**
